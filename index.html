@@ -3,15 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Beta - Escáner QR</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Proyecto Beta - NFTs Simulados</title>
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #333;
+            padding: 10px;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        header a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid gold;
+            border-radius: 5px;
+            width: 200px;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #fff;
+            color: #000;
+            padding: 10px 20px;
+            border: 2px solid gold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #ccc;
+        }
+
+        img {
+            margin-top: 20px;
+            border: 5px solid gold;
+            max-width: 300px;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <a href="index.html">Página Principal</a>
+        <a href="perfil.html">Perfil</a>
+    </header>
     <div class="container">
-        <h1>Escanea el QR para ver una imagen</h1>
-        <img id="displayImage" src="" alt="Imagen Aleatoria" style="width: 300px; height: auto; display: none;">
-        <button id="scanButton">Escanear QR</button>
+        <h1>Proyecto Beta - NFTs Simulados</h1>
+        <p>Introduce tu código para generar un NFT:</p>
+        <input type="text" id="codeInput" placeholder="Ejemplo: 01NFT">
+        <button id="submitCode">Generar NFT</button>
+        <div id="result">
+            <!-- NFT generado se mostrará aquí -->
+        </div>
     </div>
+
     <script src="app.js"></script>
 </body>
 </html>
