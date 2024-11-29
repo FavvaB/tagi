@@ -1,32 +1,46 @@
-// Array de URLs de imágenes - asegúrate de reemplazarlas con los enlaces de tus imágenes en Drive
+// Lista de códigos válidos
+const validCodes = ["01NFT", "02NFT", "03NFT", "04NFT", "05NFT", "06NFT", "07NFT", "08NFT", "09NFT", "10NFT"];
+// Lista de imágenes alojadas en el repositorio
 const images = [
-    "https://drive.google.com/uc?export=view&id=1HS1jX8e71GcX3sZphl0KqY0XVfmAkoQP",
-    "https://drive.google.com/uc?export=view&id=1zcJeI7mJTxl_KQiT10YlU0xlrxCh5mcQ",
-    "https://drive.google.com/uc?export=view&id=1TMp744QfG25YbP5K9mkJL8MSwQPx-ef3",
-    "https://drive.google.com/uc?export=view&id=1N2EAjj-HXHfQSdYkSzLEoEq1dEj2zT26",
-    "https://drive.google.com/uc?export=view&id=10rNuiQJ8jDpFeLbCmsrG6pcRNtAF5VTS",
-    "https://drive.google.com/uc?export=view&id=1MY7teR4YedIFFYZcpEA1voXXNUiXjLo7",
-    "https://drive.google.com/uc?export=view&id=1x8ORVts1RsTzwdSY-TLkwokSNCq6ikMb",
-    "https://drive.google.com/uc?export=view&id=1IGQuE-TPhu8zYvDtMIEjFO_AMBYmlCok",
-    "https://drive.google.com/uc?export=view&id=1XEP3bkEtvfU-K53yQKqTrNEzoYsvlt7E",
-    "https://drive.google.com/uc?export=view&id=13dVSXwbtcggBaj-WiawbxHoqhZvqj0QU"
+    "./img/nft1.png",
+    "./img/nft2.png",
+    "./img/nft3.png",
+    "./img/nft4.png",
+    "./img/nft5.png",
+    "./img/nft6.png",
+    "./img/nft7.png",
+    "./img/nft8.png",
+    "./img/nft9.png",
+    "./img/nft10.png"
 ];
 
-// Referencia a los elementos HTML
-const displayImageElement = document.getElementById("displayImage");
-const scanButton = document.getElementById("scanButton");
-const messageElement = document.getElementById("message");
+// Almacena los códigos usados
+let usedCodes = JSON.parse(localStorage.getItem("usedCodes")) || [];
+let savedNFTs = JSON.parse(localStorage.getItem("savedNFTs")) || [];
 
-// Evento para el botón
-scanButton.addEventListener("click", function() {
-    // Seleccionar una imagen aleatoria
-    const randomImage = images[Math.floor(Math.random() * images.length)];
+// Evento de validación y generación
+document.getElementById("submitCode").addEventListener("click", function () {
+    const codeInput = document.getElementById("codeInput").value.trim();
 
-    // Mostrar la imagen con el marco dorado
-    displayImageElement.src = randomImage;
-    displayImageElement.style.display = "block";
+    if (validCodes.includes(codeInput)) {
+        if (usedCodes.includes(codeInput)) {
+            alert("Este código ya ha sido utilizado.");
+        } else {
+            // Selección aleatoria de imagen
+            const randomImage = images[Math.floor(Math.random() * images.length)];
 
-    // Desactivar el botón y mostrar el mensaje de agradecimiento
-    scanButton.disabled = true;
-    messageElement.style.display = "block";
+            // Mostrar el NFT generado
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `<img src="${randomImage}" alt="NFT Generado">`;
+
+            // Guardar el NFT en almacenamiento local
+            savedNFTs.push(randomImage);
+            usedCodes.push(codeInput);
+            localStorage.setItem("savedNFTs", JSON.stringify(savedNFTs));
+            localStorage.setItem("usedCodes", JSON.stringify(usedCodes));
+            alert("NFT generado y guardado en tu perfil.");
+        }
+    } else {
+        alert("Código inválido. Por favor, ingresa un código válido.");
+    }
 });
