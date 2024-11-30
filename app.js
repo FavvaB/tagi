@@ -28,13 +28,14 @@ document.getElementById("submitCode").addEventListener("click", function () {
         } else {
             // Selección aleatoria de imagen
             const randomImage = images[Math.floor(Math.random() * images.length)];
+            const dateCreated = new Date().toLocaleString();
 
             // Mostrar el NFT generado
             const resultDiv = document.getElementById("result");
             resultDiv.innerHTML = `<img src="${randomImage}" alt="NFT Generado">`;
 
             // Guardar el NFT en almacenamiento local
-            savedNFTs.push(randomImage);
+            savedNFTs.push({ image: randomImage, date: dateCreated });
             usedCodes.push(codeInput);
             localStorage.setItem("savedNFTs", JSON.stringify(savedNFTs));
             localStorage.setItem("usedCodes", JSON.stringify(usedCodes));
@@ -43,4 +44,11 @@ document.getElementById("submitCode").addEventListener("click", function () {
     } else {
         alert("Código inválido. Por favor, ingresa un código válido.");
     }
+});
+
+// Botón de reinicio
+document.getElementById("resetButton").addEventListener("click", function () {
+    localStorage.clear();
+    alert("Se han reiniciado los datos. Ahora pueden probar diferentes usuarios.");
+    location.reload();
 });
