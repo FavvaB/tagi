@@ -40,6 +40,8 @@
             width: 100px;
             height: auto;
             margin-right: 10px;
+            border: none; /* Se elimina cualquier borde */
+            box-shadow: none; /* Se elimina cualquier sombra */
         }
 
         .container {
@@ -75,7 +77,7 @@
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
         }
 
-        img {
+        img:not(#logo) {
             margin-top: 30px;
             border: 5px solid gold;
             max-width: 350px;
