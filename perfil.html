@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - NFTs Simulados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
+            font-family: 'Lora', serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: #fff;
             margin: 0;
             padding: 0;
@@ -15,14 +16,18 @@
         }
 
         header {
-            background-color: #333;
+            background-color: #2a2a2a;
             padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header a {
             color: #fff;
             text-decoration: none;
             margin: 0 15px;
+            font-weight: bold;
         }
 
         .container {
@@ -34,6 +39,8 @@
             border: 3px solid gold;
             max-width: 200px;
             height: auto;
+            cursor: pointer;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .nft-gallery {
@@ -42,16 +49,16 @@
             justify-content: center;
         }
 
-        .no-nfts {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #ccc;
+        #logo {
+            width: 50px;
+            height: auto;
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="index.html">Página Principal</a>
+        <div><a href="index.html">Página Principal</a></div>
+        <img id="logo" src="./img/logo.png" alt="Logo Proyecto">
     </header>
     <div class="container">
         <h1>Tu Galería de NFTs</h1>
@@ -65,12 +72,57 @@
         const savedNFTs = JSON.parse(localStorage.getItem("savedNFTs")) || [];
 
         if (savedNFTs.length === 0) {
-            nftGallery.innerHTML = "<p class='no-nfts'>No tienes NFTs guardados.</p>";
+            nftGallery.innerHTML = "<p>No tienes NFTs guardados.</p>";
         } else {
-            savedNFTs.forEach(image => {
+            savedNFTs.forEach(nft => {
                 const img = document.createElement("img");
-                img.src = image;
+                img.src = nft.image;
                 img.alt = "NFT Guardado";
+                img.addEventListener("click", function () {
+                    const newWindow = window.open("", "_blank");
+                    newWindow.document.write(`
+                        <html>
+                        <head>
+                            <title>Detalle del NFT</title>
+                            <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+                            <style>
+                                body {
+                                    text-align: center;
+                                    font-family: 'Lora', serif;
+                                    background: linear-gradient(135deg, #1e3c72, #2a5298);
+                                    color: #fff;
+                                    margin: 0;
+                                    padding: 20px;
+                                }
+                                img {
+                                    max-width: 300px;
+                                    border: 5px solid gold;
+                                    margin-bottom: 20px;
+                                    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+                                }
+                                button {
+                                    background-color: #fff;
+                                    color: #000;
+                                    padding: 10px 20px;
+                                    border: 2px solid gold;
+                                    border-radius: 5px;
+                                    cursor: pointer;
+                                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+                                }
+                                button:hover {
+                                    background-color: #ccc;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <h1>Detalle del NFT</h1>
+                            <img src="${nft.image}" alt="NFT Guardado">
+                            <p><strong>Fecha y Hora de Creación:</strong> ${nft.date}</p>
+                            <button onclick="window.location.href='perfil.html'">Volver al Perfil</button>
+                        </body>
+                        </html>
+                    `);
+                });
                 nftGallery.appendChild(img);
             });
         }
